@@ -2,12 +2,12 @@ import java.util.Random;
 
 class Sudoku {
    static Random random = new Random();
-   
+
    public static void main(String[] args) {
       System.out.println("hello world");
 
       int[][] board = generateBoard();
-      printboard(board); 
+      printBoard(board); 
    }
 
    private static int[][] generateBoard() {
@@ -44,7 +44,7 @@ class Sudoku {
       return (random.nextInt(max) + min);
    }
 
-   private static void printboard(int[][] board) {
+   private static void printBoard(int[][] board) {
       int rows = board.length;
       int cols = board[0].length; //TODO: this might not always exists
       System.out.println();
