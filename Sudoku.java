@@ -1,4 +1,5 @@
-  
+import java.util.Random; 
+
 class Sudoku {
    public static void main(String[] args) {
       System.out.println("hello world");
@@ -15,11 +16,20 @@ class Sudoku {
 
       for(int a = 0; a < rows; a++) {
          for(int b = 0; b < cols; b++) {
-            board[a][b] = 0;
+            board[a][b] = generateRandomNumber();
          }
       }
 
       return board;
+   }
+
+   private static int generateRandomNumber() {
+      return generateRandomNumber(0, 9); //0 means the cell is not set
+   }
+
+   private static int generateRandomNumber(int min, int max) {
+      Random random = new Random(); //TODO: fix so the random variable is not initialized on each call
+      return (random.nextInt(max) + min);
    }
 
 }
