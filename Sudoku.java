@@ -5,6 +5,7 @@ class Sudoku {
       System.out.println("hello world");
 
       int[][] board = generateBoard();
+      printboard(board);
    }
 
    private static int[][] generateBoard() {
@@ -32,4 +33,17 @@ class Sudoku {
       return (random.nextInt(max) + min);
    }
 
+   private static void printboard(int[][] board) {
+      int rows = board.length;
+      int cols = board[0].length; //TODO: this might not always exists
+      System.out.println();
+
+      for(int a = 0; a < rows; a++) {
+         for(int b = 0; b < cols; b++) {
+            System.out.print(board[a][b]);
+            System.out.print(" ");
+         }
+         System.out.println();
+      }    
+   }
 }
