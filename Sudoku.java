@@ -1,11 +1,13 @@
 import java.util.Random; 
 
 class Sudoku {
+   static Random random = new Random();
+   
    public static void main(String[] args) {
       System.out.println("hello world");
 
       int[][] board = generateBoard();
-      printboard(board);
+      printboard(board); 
    }
 
    private static int[][] generateBoard() {
@@ -15,9 +17,19 @@ class Sudoku {
    private static int[][] generateBoard(int rows, int cols) {
       int[][] board = new int[rows][cols];
 
+      int value = 0;
       for(int a = 0; a < rows; a++) {
          for(int b = 0; b < cols; b++) {
-            board[a][b] = generateRandomNumber();
+            
+            //60% chance to use a random number, i.e. fill the board
+            if((random.nextInt(10)+1) <= 6) {
+               value = generateRandomNumber();
+            }
+            else {
+               value = 0;
+            }
+           
+            board[a][b] = value;
          }
       }
 
@@ -29,7 +41,6 @@ class Sudoku {
    }
 
    private static int generateRandomNumber(int min, int max) {
-      Random random = new Random(); //TODO: fix so the random variable is not initialized on each call
       return (random.nextInt(max) + min);
    }
 
