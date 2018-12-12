@@ -1,3 +1,4 @@
+import java.lang.reflect.Constructor;
 import java.util.Random; 
 
 class Sudoku {
@@ -8,6 +9,9 @@ class Sudoku {
 
       int[][] board = generateBoard();
       printBoard(board); 
+
+
+      solve(board);
    }
 
    private static int[][] generateBoard() {
@@ -56,5 +60,28 @@ class Sudoku {
          }
          System.out.println();
       }    
+   }
+
+   private static boolean solve(int[][] board) {
+      return solve(board, 0, 0);
+   }
+
+   private static boolean solve(int[][] board, int row, int col) {
+      System.out.println("Solve func");
+
+      return true;
+   }
+
+   private static Cell findNextCell(int[][] board, int row, int col) {
+      return new Cell(0,0);
+   }
+}
+
+class Cell {
+   public int row, col;
+
+   Cell(int row, int col) {
+      this.row = row;
+      this.col = col;
    }
 }
