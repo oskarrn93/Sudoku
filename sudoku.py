@@ -96,6 +96,41 @@ def validateValue(grid, row, col, value):
       return False
    return True
 
+def validateSolution(grid):
+
+   #då det är en 9x9 matris så räcker det att iterera över en sida
+   for x in range(9):
+      row = getRow(grid, x) #hämta ut rad
+      col = getColumn(grid, x) #hämta ut kolumn
+
+      """
+      genom att använda set() så tar den bort eventuella dubletter
+      så genom att kolla längden på listan (row och column) och längden på set() utav samma lista
+      och om dessa är lika långa så finns det inga dubletter
+      """
+
+      lenRow = len(row)
+      lenRowSet = len(set(row))
+
+      lenCol = len(col)
+      lenColSet = len(set(col))
+
+      if DEBUG: 
+         print("lenRow:", lenRow)
+         print("lenRowSet", lenRowSet)
+
+         print("lenCol:", lenCol)
+         print("lenColSet", lenColSet)
+
+      if lenRow is not lenRowSet: 
+         raise Exception("row length differs")
+
+      if lenCol is not lenColSet: 
+         raise Exception("col length differs")
+
+      #allt ok
+      return True
+
 def findNextEmptyCell(grid, row, col):
    #leta efter nästa tomma cell   
    for x in range(9):
@@ -158,6 +193,12 @@ if __name__ == "__main__":
    if result is True:
       print("\nSuccess! A solution was found.")
       printGrid(grid)
+
+      result = validateSolution(grid)
+      if result is True:
+         print("\nThe Solution is valid!")
+      else:
+         print("\nThe Solution is NOT valid!")
    else:
-      print("No solution was found :(")
+      print("\nNo solution was found :(")
 
