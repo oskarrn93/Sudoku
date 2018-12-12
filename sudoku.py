@@ -56,13 +56,51 @@ def validateColumn(grid, col, value):
       return False
    return True
 
+def getSubGrid(grid, row, col):
+   subGridRowStart = 3 * (row//3) # // är floor division (avrunda neråt till heltal)
+   subGridColStart = 3 * (col//3)
+
+   #instansiera subgrid
+   subGrid = []
+   #subgrid är 3x3 eftersom hela griden är 9x9
+   for a in range(0, 3):
+      tmpList = list()
+      for b in range(0, 3):
+         tmpList.append(grid[a+subGridRowStart][b+subGridColStart])
+      subGrid.append(tmpList)
+
+   return subGrid
+
+def validateSubGrid(grid, row, col, value):
+   subGrid = getSubGrid(grid, row, col)
+   subGridValues = list()
+
+   #hämta ut värdena ur subgriden
+   for x in range(3):
+      for y in range(3):
+         subGridValues.append(subGrid[x][y]) 
+
+   if DEBUG: 
+      print("subGrid", subGrid)
+      print("value", value)
+      print("subGridValues", subGridValues)
+
+   #kolla om siffran redan finns i subgrid
+   if value in subGridValues:
+      return False;
+      
+   return True;
+
 if __name__ == "__main__":
 
    grid = getGrid()
    printGrid(grid)
 
-   print("validateRow", validateRow(grid, 0, 5)) #siffrorna är bara testfall
-   print("validateRow", validateRow(grid, 2, 5))
-   print("validateColumn", validateColumn(grid, 1, 3))
-   print("validateColumn", validateColumn(grid, 0, 3))
+   if DEBUG:
+      print("validateRow", validateRow(grid, 0, 5)) #siffrorna är bara testfall
+      print("validateRow", validateRow(grid, 2, 5))
+      print("validateColumn", validateColumn(grid, 1, 3))
+      print("validateColumn", validateColumn(grid, 0, 3))
+      print("validateSubGrid", validateSubGrid(grid, 0, 0, 6))
+      print("validateSubGrid", validateSubGrid(grid, 0, 0, 1))
 
