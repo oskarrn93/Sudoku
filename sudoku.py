@@ -91,6 +91,11 @@ def validateSubGrid(grid, row, col, value):
       
    return True;
 
+def validateValue(grid, row, col, value):
+   if not validateRow(grid, row, value) or not validateColumn(grid, col, value) or not validateSubGrid(grid, row, col, value):
+      return False
+   return True
+
 if __name__ == "__main__":
 
    grid = getGrid()
@@ -103,4 +108,7 @@ if __name__ == "__main__":
       print("validateColumn", validateColumn(grid, 0, 3))
       print("validateSubGrid", validateSubGrid(grid, 0, 0, 6))
       print("validateSubGrid", validateSubGrid(grid, 0, 0, 1))
+
+      print("validateValue", validateValue(grid, 0, 0, 1))
+      print("validateValue", validateValue(grid, 0, 0, 6))
 
