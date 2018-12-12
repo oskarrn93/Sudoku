@@ -123,10 +123,12 @@ def validateSolution(grid):
          print("lenColSet", lenColSet)
 
       if lenRow is not lenRowSet: 
-         raise Exception("row length differs")
+         if DEBUG: print("ERROR: row length differs")
+         return False;
 
       if lenCol is not lenColSet: 
-         raise Exception("col length differs")
+         if DEBUG: ("ERROR: col length differs")
+         return False;
 
       #allt ok
       return True
@@ -199,6 +201,7 @@ if __name__ == "__main__":
          print("\nThe Solution is valid!")
       else:
          print("\nThe Solution is NOT valid!")
+         print("\nNo solution was found :(")
    else:
       print("\nNo solution was found :(")
 
