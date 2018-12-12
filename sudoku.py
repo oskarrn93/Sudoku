@@ -18,6 +18,10 @@ def getGrid():
    ] 
    return grid
 
+def printGrid(grid):
+   for x in range(0, len(grid)):
+      print("".join(str(grid[x])))
+
 def getRow(grid, row):
    result = list()
 
@@ -55,7 +59,7 @@ def validateColumn(grid, col, value):
 if __name__ == "__main__":
 
    grid = getGrid()
-   print("grid", grid)
+   printGrid(grid)
 
    print("validateRow", validateRow(grid, 0, 5)) #siffrorna är bara testfall
    print("validateRow", validateRow(grid, 2, 5))
