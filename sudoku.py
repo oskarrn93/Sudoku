@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-DEBUG = True
-#DEBUG = False
+#DEBUG = True
+DEBUG = False
 
 def getGrid():
    #https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg/1200px-Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg.png
@@ -96,19 +96,68 @@ def validateValue(grid, row, col, value):
       return False
    return True
 
+def findNextEmptyCell(grid, row, col):
+   #leta efter nästa tomma cell   
+   for x in range(9):
+      for y in range(9):
+         if grid[x][y] is 0:
+            return x, y
+
+   #om det inte finns någon cell kvar att fylla
+   return -1, -1
+
+def solve(grid, row=0, col=0):
+   if DEBUG: print("solve")
+
+   row, col = findNextEmptyCell(grid, row, col)
+
+   if DEBUG: 
+      print("row", row)
+      print("col", col)
+
+   #finns inga fler celler att fylla i, så vi är klara
+   if row is -1 and col is -1:
+      return True
+
+   #testa med siffrorna 1 till och med 9 att sätta in i cellen
+   for value in range(1, 10):
+      if validateValue(grid, row, col, value) is True:
+         grid[row][col] = value #värdet verkar fungera
+         if solve(grid, row, col) is True: #rekursivt fortsätt lösa
+            return True
+         
+         grid[row][col] = 0 #ingen lösning så sätt cell till 0 och testa med nästa vörde i loopen
+   
+   """
+   return False är backtrack om inget värde i loopen lyckades, så går man uppåt/tillbaka 
+   i rekursionen och fortsätter testa med ett nytt värde om det är en lösning, dvs en typ utav brute force
+   """
+   return False
+
 if __name__ == "__main__":
 
    grid = getGrid()
    printGrid(grid)
 
    if DEBUG:
-      print("validateRow", validateRow(grid, 0, 5)) #siffrorna är bara testfall
-      print("validateRow", validateRow(grid, 2, 5))
-      print("validateColumn", validateColumn(grid, 1, 3))
-      print("validateColumn", validateColumn(grid, 0, 3))
-      print("validateSubGrid", validateSubGrid(grid, 0, 0, 6))
-      print("validateSubGrid", validateSubGrid(grid, 0, 0, 1))
+      print("validateRow:", validateRow(grid, 0, 5)) #siffrorna är bara testfall
+      print("validateRow:", validateRow(grid, 2, 5))
+      print("validateColumn:", validateColumn(grid, 1, 3))
+      print("validateColumn:", validateColumn(grid, 0, 3))
+      print("validateSubGrid:", validateSubGrid(grid, 0, 0, 6))
+      print("validateSubGrid:", validateSubGrid(grid, 0, 0, 1))
 
-      print("validateValue", validateValue(grid, 0, 0, 1))
-      print("validateValue", validateValue(grid, 0, 0, 6))
+      print("validateValue:", validateValue(grid, 0, 0, 1))
+      print("validateValue:", validateValue(grid, 0, 0, 6))
+
+   result = solve(grid) 
+
+   if DEBUG:
+      print("solve result:", result)
+
+   if result is True:
+      print("\nSuccess! A solution was found.")
+      printGrid(grid)
+   else:
+      print("No solution was found :(")
 
